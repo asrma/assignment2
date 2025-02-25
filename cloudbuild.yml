@@ -1,28 +1,33 @@
 steps:
-  # Docker Build
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 
-           'us-central1-docker.pkg.dev/semester-2-408906/demo-0000000000/assignment2:${SHORT_SHA}', 
-           '.']
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/college-440502/ashutosh-100938162/assignment2:$COMMIT_SHA'
+      - '.'
 
-  # Docker Push
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 
-           'us-central1-docker.pkg.dev/semester-2-408906/demo-0000000000/assignment2:${SHORT_SHA}']
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/college-440502/ashutosh-100938162/assignment2:$COMMIT_SHA'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
-    - 'run'
-    - 'deploy'
-    - 'assignment2'
-    - '--image'
-    - 'us-central1-docker.pkg.dev/semester-2-408906/demo-0000000000/assignment2:${SHORT_SHA}'
-    - '--region'
-    - 'us-central1'
-    
+      - 'run'
+      - 'deploy'
+      - 'vanik-app'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/college-440502/ashutosh-100938162/assignment2:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+
 images:
-  - 'us-central1-docker.pkg.dev/semester-2-408906/demo-0000000000/assignment2:${SHORT_SHA}'
-  
+  - 'us-central1-docker.pkg.dev/college-440502/ashutosh-100938162/assignment2:$COMMIT_SHA'
+
 options:
-    defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
+  logging: CLOUD_LOGGING_ONLY
+

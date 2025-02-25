@@ -16,7 +16,7 @@ steps:
     args:
       - 'run'
       - 'deploy'
-      - 'vanik-app'
+      - 'sharma-app'
       - '--image'
       - 'us-central1-docker.pkg.dev/college-440502/ashutosh-100938162/assignment2:$COMMIT_SHA'
       - '--region'
